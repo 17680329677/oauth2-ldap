@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>AISPEECH登录</title>
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    <link th:href="@{/css/awesome-bootstrap-checkbox.min.css}" rel="stylesheet">
+    <link th:href="@{/css/font-awesome.min.css}" rel="stylesheet">
+    <link th:href="@{/css/style.css}" rel="stylesheet">
+  </head>
+  <body>
+  <span class="header-ribbon"/>
+  <div class="container-fluid">
+    <div class="row">
+        <div class="col-md-4 col-md-offset-4 col-centered">
+            <div class="login-panel">
+                <h4 class="login-panel-title">AISPEECH</h4>
+                <p class="login-panel-tagline">统一认证授权平台</p>
+                <form name="loginForm" id="loginForm" method="post" th:action="${loginProcessUrl}">
+                    <div class="login-panel-section">
+                        <div class="form-group">
+                            <div class="input-group margin-bottom-sm">
+                                <span class="input-group-addon"><i class="fa fa-user fa-fw" aria-hidden="true"></i></span>
+                                <input class="form-control" name="username" type="text" placeholder="用户名 eg.san.zhang" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-key fa-fw" aria-hidden="true"></i></span>
+                                <input class="form-control" name="password" type="password" placeholder="密码" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div><span class="login-error-info" th:text="${msg}"></span></div>
+                    <div class="login-panel-section">
+                        <button class="btn btn-default" type="submit"><i class="fa fa-sign-in fa-fw" aria-hidden="true"></i> Login</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script th:src="@{/js/jquery-3.2.1.min.js}"></script>
+  <script th:src="@{/js/bootstrap.min.js}"></script>
+  <script xmlns:th="http://www.thymeleaf.org" th:inline="javascript">
+      var url = [[${loginProcessUrl}]]
+      console.log(url)
+  </script>
+</html>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>思必驰统一授权服务</title>
+</head>
+
+<body style="margin: 0px">
+<div class="title">
+    <div class="title-right">AISpeech 授权</div>
+    <div class="title-left">
+        <a href="#help">帮助</a>
+    </div>
+</div>
+<div class="container">
+    <h3 th:text="${clientInfo['company']} + ' 请求授权，该应用将获取的以下信息'"></h3>
+    <b th:text="'姓名：' + ${userName}"></b>
+    <p>昵称，邮箱和性别</p>
+    授权后表明你已同意 <a  href="#boot" style="color: #E9686B">OAUTH-BOOT 服务协议</a>
+    <form method="post" th:action="${urlPrefix} + '/oauth/authorize'">
+        <input type="hidden" name="user_oauth_approval" value="true">
+        <input type="hidden" th:each="scope:${scopeList}" th:name="'scope.' + ${scope}" value="true">
+        <input type="hidden" name="authorize" value="Authorize"/>
+        <button class="btn" type="submit"> 同意/授权</button>
+        <button id="reject" class="btn" type="reset"> 拒绝/登出</button>
+    </form>
+</div>
+</body>
+
+<script th:src="@{/js/jquery-3.2.1.min.js}"></script>
+<script xmlns:th="http://www.thymeleaf.org" th:inline="javascript">
+    var scopeList = [[${scopeList}]]
+    var urlPrefix = [[${urlPrefix}]]
+    $('#reject').click(function () {
+        $.ajax({
+            type: 'get',
+            url: urlPrefix + '/oauth/logout',
+            cache: false,
+            async:true,
+            dataType: 'JSON',
+            contentType: "application/json; charset=utf-8",
+            success: function () {
+                window.location.reload();
+            },
+            error: function () {
+                window.location.reload();
+            }
+        });
+    })
+</script>
+
+<style>
+
+    html{
+        padding: 0px;
+        margin: 0px;
+    }
+
+    .title {
+        background-color: #E9686B;
+        height: 50px;
+        padding-left: 20%;
+        padding-right: 20%;
+        color: white;
+        line-height: 50px;
+        font-size: 18px;
+    }
+    .title-left{
+        float: right;
+    }
+    .title-right{
+        float: left;
+    }
+    .title-left a{
+        color: white;
+    }
+    .container{
+        clear: both;
+        text-align: center;
+    }
+    .btn {
+        width: 350px;
+        height: 35px;
+        line-height: 35px;
+        cursor: pointer;
+        margin-top: 20px;
+        border-radius: 3px;
+        background-color: #E9686B;
+        color: white;
+        border: none;
+        font-size: 15px;
+    }
+</style>
+</html>

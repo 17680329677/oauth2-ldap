@@ -1,0 +1,44 @@
+plugins {
+	id 'org.springframework.boot' version '2.2.0.BUILD-SNAPSHOT'
+	id 'java'
+}
+
+apply plugin: 'io.spring.dependency-management'
+
+group = 'com.aispeech'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+
+repositories {
+	mavenCentral()
+	maven { url 'https://repo.spring.io/snapshot' }
+	maven { url 'https://repo.spring.io/milestone' }
+	maven { url = "http://artifactory.spetechcular.com/artifactory/libs-release" }
+	maven { url = "http://artifactory.spetechcular.com/artifactory/libs-snapshot" }
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+	implementation 'org.springframework.security:spring-security-jwt'
+	implementation 'com.aisp:horizontal:1.9.48.0'
+	testImplementation('org.springframework.boot:spring-boot-starter-test') {
+		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+		exclude group: 'junit', module: 'junit'
+	}
+	compileOnly('org.projectlombok:lombok:1.18.4')
+	annotationProcessor('org.projectlombok:lombok:1.18.4')
+	compile group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: '1.5.14.RELEASE'
+	compile group: 'org.springframework.security.oauth', name: 'spring-security-oauth2', version: '2.0.14.RELEASE'
+	compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-ldap', version: '1.5.2.RELEASE'
+	compile group: 'org.springframework.security', name: 'spring-security-ldap'
+	compile group: 'org.springframework.security', name: 'spring-security-jwt', version: '1.0.9.RELEASE'
+	compile group: 'commons-collections', name: 'commons-collections', version:'3.1'
+	compile group: 'io.jsonwebtoken', name: 'jjwt', version:'0.9.1'
+	runtimeOnly('mysql:mysql-connector-java:5.1.28')
+}
+
+test {
+	useJUnitPlatform()
+}
